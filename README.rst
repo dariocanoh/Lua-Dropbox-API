@@ -1,17 +1,10 @@
-Ésta librería se conecta con la API REST de Dropbox para interactuar con archivos desde Lua.
-
 *Lua Dropbox API* está construida sobre la `Dropbox REST API v2 <https://www.dropbox.com/developers/documentation/http/documentation>`_ 
 la cual es una serie de endpoints que nos permiten interactuar con los servicios de Dropbox.
-
-.. note::
-
-	Un endpoint es la interface web a través de la cual los sistemas externos pueden enviar y recibir 
-	mensajes a una aplicación o servidor web.
 
 Aquí está todo explicado, de todos modos puede echar un vistazo a la documentación completa para 
 aprender todo lo que podemos hacer con la API.
 
-`Dropbox for HTTP Developers <https://www.dropbox.com/developers/documentation/http/overview`_ 
+`Dropbox for HTTP Developers <https://www.dropbox.com/developers/documentation/http/overview>`_ 
 
 
 Dependencias
@@ -40,10 +33,13 @@ Instalación
 	$ lua5.1 -l dropboxapi.init
 
 
-# Cómo usarlo
+Cómo usarlo
+===========
 
 Debe ejecutar la libreria lua con un intérprete de Lua5.1 y para importarlo es dependiendo de 
 como haya llamado el repositorio que descargó, pero por favor llamelo *dropboxapi*.
+
+.. code-block:: lua
 
 	local dropbox      = require 'dropboxapi.init'
 	local a_token      = '<acces_token>'
@@ -54,8 +50,6 @@ como haya llamado el repositorio que descargó, pero por favor llamelo *dropboxa
 
 Referencia
 ==========
-
-Lua Wrapper para Dropbox Core API.
 
 ===========================  =======================================================================
   Métodos de la clase      	   Descripción
