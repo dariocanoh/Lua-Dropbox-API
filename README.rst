@@ -1,6 +1,6 @@
 Ésta librería se conecta con la API REST de Dropbox para interactuar con archivos desde Lua.
 
-*Lua Dropbox API* está construida sobre la `Dropbox REST API v2<https://www.dropbox.com/developers/documentation/http/documentation>`_ 
+*Lua Dropbox API* está construida sobre la `Dropbox REST API v2 <https://www.dropbox.com/developers/documentation/http/documentation>`_ 
 la cual es una serie de endpoints que nos permiten interactuar con los servicios de Dropbox.
 
 .. note::
@@ -11,7 +11,7 @@ la cual es una serie de endpoints que nos permiten interactuar con los servicios
 Aquí está todo explicado, de todos modos puede echar un vistazo a la documentación completa para 
 aprender todo lo que podemos hacer con la API.
 
-`Dropbox for HTTP Developers <https://www.dropbox.com/developers/documentation/http/overview`_
+`Dropbox for HTTP Developers <https://www.dropbox.com/developers/documentation/http/overview`_ 
 
 
 Dependencias
