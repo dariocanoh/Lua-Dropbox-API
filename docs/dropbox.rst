@@ -8,6 +8,7 @@ dropbox.get_access_token
 ^^^^^^^^^^^^^^^^^^^^^^^^
    
 Obtiene el token de acceso para hacer operaciones con la api de dropbox.
+
 *app_key* y *app_secret* los podemos encontrar en: 
 	>>> https://www.dropbox.com/developers/apps/
    
@@ -15,9 +16,10 @@ Obtiene el token de acceso para hacer operaciones con la api de dropbox.
 	>>> https://blogs.dropbox.com/developers/2013/07/using-oauth-2-0-with-the-core-api/
    
 Ingresando ésta web en el explorador: 
+Cambiando "<app_key>" por la clave que obtenemos en la consola de dropbox
 	>>> https://www.dropbox.com/1/oauth2/authorize?client_id=<app_key>&response_type=code
 
-Cambiando "<app_key>" por la clave que obtenemos en la consola de dropbox
+
 
 ==========  ========================================================================================
  string      dropbox.get_access_token ( string_ 'app_key', string_ 'app_secret', string_ 'auth_code' );
