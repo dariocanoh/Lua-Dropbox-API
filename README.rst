@@ -14,14 +14,14 @@ Para poder funcionar, ésta libreria requiere tener instaladas las siguientes li
 
 .. code-block::
 
-	* requests 1.1-1      - https://github.com/JakobGreen/lua-requests lic
+	* requests 1.1-1      - https://github.com/JakobGreen/lua-requests
 	* lub 1.1.0-1	      - https://github.com/lubyk/lub
 	* md5 1.2-1           - https://github.com/keplerproject/md5
 	* luasocket 3.0rc1-2  - https://github.com/diegonehab/luasocket
 	* luasec 0.6-1        - https://github.com/brunoos/luasec
 	* xml 1.1.3-1         - https://github.com/lubyk/xml
 	* lbase64 20120820-1  - http://webserver2.tecgraf.puc-rio.br/~lhf/ftp/lua/5.1/lbase64.tar.gz
-
+	* lua-cjson           - 
 
 Instalación
 ===========
