@@ -15,6 +15,8 @@
 local requests = require 'requests'
 local dropbox  = {}
 
+dropbox.acces_token = nil
+
 --- Devuelve el token de acceso que permite hacer operaciones con la api de dropbox.
 --- client_id y client_secret son appkey y appsecret respectivamente, estos los podemos encontrar en:
 --- > https://www.dropbox.com/developers/apps/
@@ -88,6 +90,37 @@ function dropbox.get_file_content ( access_token, cloud_file_path )
 	elseif (response.status_code == '404') then
 		return false, 'lua-dropbox-api: '..response.json().error, response.json().error_description
 	end
+end
+
+function dropbox.list_folder( path, recursive, include_media_info, include_deleted, include_has_explicit_shared_members )
+	local data = { 
+		path      = tostring(path),
+		recursive = recursive,
+		include_media_info = include_media_info,
+		include_deleted = include_deleted,
+		include_has_explicit_shared_members = include_has_explicit_shared_members,
+	}
+
+	local headers = {
+		['Authorization'] = 'Bearer ' .. dropbox.access_token,
+		['Content-Type']  = 'application/json',
+	}
+
+	local response = requests.post { url = 'https://api.dropboxapi.com/2/files/list_folder', headers = headers, data = data }	
+	
+	--400	Bad input parameter. The response body is a plaintext message with more information.
+	if (response.status_code == 400) then
+		-- Error in call to API function "files/list_folder": request body: path: '/filedasdsxa' did not match pattern '(/(.|[\r\n])*)?|(ns:[0-9]+(/.*)?)'
+		lide_last_error = response.text
+		return false, tostring(response.text or 'status 400')
+	end
+	
+	--path_display	/Public/Ejemplos
+	--path_lower	/public/ejemplos
+	--name	Ejemplos
+	--id	id:In5FPScmX0QAAAAAAAABxA
+	--.tag	folder
+	return response.json().entries
 end
 
 return dropbox
