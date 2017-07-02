@@ -68,14 +68,14 @@ Referencia
 ===============================  =======================================================================
 
 
-.. _dropbox.get_access_token   : docs/dropbox.rst # dropboxget_access_token
-.. _dropbox.get_account_info   : docs/dropbox.rst # dropboxget_account_info
-.. _dropbox.get_file_content   : docs/dropbox.rst # dropboxget_file_content
-.. _dropbox.get_space_usage    : docs/dropbox.rst # get_space_usage
-.. _dropbox.auth_token_revoke  : docs/dropbox.rst # auth_token_revoke
-.. _dropbox.create_folder      : docs/dropbox.rst # create_folder
-.. _dropbox.file_delete        : docs/dropbox.rst # file_delete
-.. _dropbox.file_download      : docs/dropbox.rst # file_download
-.. _dropbox.file_upload        : docs/dropbox.rst # file_upload
-.. _dropbox.get_current_account: docs/dropbox.rst # get_current_account
-.. _dropbox.list_folder        : docs/dropbox.rst # list_folder
+.. _dropbox.get_access_token: docs/dropbox.rst # dropboxget_access_token
+.. _dropbox.get_account_info: docs/dropbox.rst # dropboxget_account_info
+.. _dropbox.get_file_content: docs/dropbox.rst # dropboxget_file_content
+.. _dropbox.get_space_usage: docs/dropbox.rst # dropboxget_space_usage
+.. _dropbox.auth_token_revoke: docs/dropbox.rst # dropboxauth_token_revoke
+.. _dropbox.create_folder: docs/dropbox.rst # dropboxcreate_folder
+.. _dropbox.file_delete: docs/dropbox.rst # dropboxfile_delete
+.. _dropbox.file_download: docs/dropbox.rst # dropboxfile_download
+.. _dropbox.file_upload: docs/dropbox.rst # dropboxfile_upload
+.. _dropbox.get_current_account:docs/dropbox.rst # dropboxget_current_account
+.. _dropbox.list_folder: docs/dropbox.rst # dropboxlist_folder
