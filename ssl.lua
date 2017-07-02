@@ -1,18 +1,22 @@
 ------------------------------------------------------------------------------
--- LuaSec 0.6
--- Copyright (C) 2006-2016 Bruno Silvestre
+-- LuaSec 0.4
+-- Copyright (C) 2006-2009 Bruno Silvestre
 --
 ------------------------------------------------------------------------------
 
-local core    = require("ssl.core")
-local context = require("ssl.context")
-local x509    = require("ssl.x509")
+module("ssl", package.seeall)
 
-local unpack  = table.unpack or unpack
+require("ssl.core")
+require("ssl.context")
 
--- We must prevent the contexts to be collected before the connections,
--- otherwise the C registry will be cleared.
-local registry = setmetatable({}, {__mode="k"})
+
+_VERSION   = "0.4"
+_COPYRIGHT = "LuaSec 0.4 - Copyright (C) 2006-2009 Bruno Silvestre\n" .. 
+             "LuaSocket 2.0.2 - Copyright (C) 2004-2007 Diego Nehab"
+
+-- Export functions
+rawconnection = core.rawconnection
+rawcontext    = context.rawcontext
 
 --
 --
@@ -31,7 +35,7 @@ end
 --
 --
 --
-local function newcontext(cfg)
+function newcontext(cfg)
    local succ, msg, ctx
    -- Create the context
    ctx, msg = context.create(cfg.protocol)
@@ -41,32 +45,17 @@ local function newcontext(cfg)
    if not succ then return nil, msg end
    -- Load the key
    if cfg.key then
-      if cfg.password and
-         type(cfg.password) ~= "function" and
-         type(cfg.password) ~= "string"
-      then
-         return nil, "invalid password type"
-      end
       succ, msg = context.loadkey(ctx, cfg.key, cfg.password)
       if not succ then return nil, msg end
    end
    -- Load the certificate
    if cfg.certificate then
-     succ, msg = context.loadcert(ctx, cfg.certificate)
-     if not succ then return nil, msg end
-     if cfg.key and context.checkkey then
-       succ = context.checkkey(ctx)
-       if not succ then return nil, "private key does not match public key" end
-     end
+      succ, msg = context.loadcert(ctx, cfg.certificate)
+      if not succ then return nil, msg end
    end
    -- Load the CA certificates
    if cfg.cafile or cfg.capath then
       succ, msg = context.locations(ctx, cfg.cafile, cfg.capath)
-      if not succ then return nil, msg end
-   end
-   -- Set SSL ciphers
-   if cfg.ciphers then
-      succ, msg = context.setcipher(ctx, cfg.ciphers)
       if not succ then return nil, msg end
    end
    -- Set the verification options
@@ -80,36 +69,13 @@ local function newcontext(cfg)
       succ, msg = context.setdepth(ctx, cfg.depth)
       if not succ then return nil, msg end
    end
-
-   -- NOTE: Setting DH parameters and elliptic curves needs to come after
-   -- setoptions(), in case the user has specified the single_{dh,ecdh}_use
-   -- options.
-
-   -- Set DH parameters
-   if cfg.dhparam then
-      if type(cfg.dhparam) ~= "function" then
-         return nil, "invalid DH parameter type"
-      end
-      context.setdhparam(ctx, cfg.dhparam)
-   end
-   -- Set elliptic curve
-   if cfg.curve then
-      succ, msg = context.setcurve(ctx, cfg.curve)
-      if not succ then return nil, msg end
-   end
-   -- Set extra verification options
-   if cfg.verifyext and ctx.setverifyext then
-      succ, msg = optexec(ctx.setverifyext, cfg.verifyext, ctx)
-      if not succ then return nil, msg end
-   end
-
    return ctx
 end
 
 --
 --
 --
-local function wrap(sock, cfg)
+function wrap(sock, cfg)
    local ctx, msg
    if type(cfg) == "table" then
       ctx, msg = newcontext(cfg)
@@ -120,60 +86,8 @@ local function wrap(sock, cfg)
    local s, msg = core.create(ctx)
    if s then
       core.setfd(s, sock:getfd())
-      sock:setfd(-1)
-      registry[s] = ctx
+      sock:setfd(core.invalidfd)
       return s
    end
    return nil, msg 
 end
-
---
--- Extract connection information.
---
-local function info(ssl, field)
-  local str, comp, err, protocol
-  comp, err = core.compression(ssl)
-  if err then
-    return comp, err
-  end
-  -- Avoid parser
-  if field == "compression" then
-    return comp
-  end
-  local info = {compression = comp}
-  str, info.bits, info.algbits, protocol = core.info(ssl)
-  if str then
-    info.cipher, info.protocol, info.key,
-    info.authentication, info.encryption, info.mac =
-        string.match(str, 
-          "^(%S+)%s+(%S+)%s+Kx=(%S+)%s+Au=(%S+)%s+Enc=(%S+)%s+Mac=(%S+)")
-    info.export = (string.match(str, "%sexport%s*$") ~= nil)
-  end
-  if protocol then
-    info.protocol = protocol
-  end
-  if field then
-    return info[field]
-  end
-  -- Empty?
-  return ( (next(info)) and info )
-end
-
---
--- Set method for SSL connections.
---
-core.setmethod("info", info)
-
---------------------------------------------------------------------------------
--- Export module
---
-
-local _M = {
-  _VERSION        = "0.6",
-  _COPYRIGHT      = core.copyright(),
-  loadcertificate = x509.load,
-  newcontext      = newcontext,
-  wrap            = wrap,
-}
-
-return _M

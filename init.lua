@@ -26,9 +26,9 @@
 
 ]]
 
-function print ( txt )
-	Dialog.Message('DROPBOXAPI:', tostring(txt))
-end
+local requests = require 'requests'
+local dropbox  = {}
+	  dropbox.access_token = nil --> Es una buena practica guardar el token de acceso aqui, aunque es opcional.
 
 local function validate_response ( response )
 	local DROPBOX_BAD_REQUEST       = 400
@@ -41,11 +41,6 @@ local function validate_response ( response )
 		return response.json()
 	end
 end
-
-local requests = require 'requests'
-local dropbox  = {}
-
-dropbox.access_token = nil
 
 --- Devuelve el token de acceso que permite hacer operaciones con la api de dropbox.
 --- client_id y client_secret son appkey y appsecret respectivamente, estos los podemos encontrar en:
@@ -128,7 +123,7 @@ function dropbox.list_folder( access_token, path, recursive, include_media_info,
 
 	local response = requests.post { url = 'https://api.dropboxapi.com/2/files/list_folder', headers = headers, data = data }	
 	
-    return validate_response(response)
+	return validate_response(response)
 end
 
 -- Create a folder at a given path.
@@ -257,9 +252,10 @@ function dropbox.get_current_account ( access_token )
 		['Authorization'] = 'Bearer ' .. access_token
 	}
 
-	local response = requests.get {url = 'https://api.dropboxapi.com/2/users/get_current_account', headers = headers }
+	local response = requests.post {url = 'https://api.dropboxapi.com/2/users/get_current_account', headers = headers }
 
-	return response.json()
+	return validate_response(response)
 end
+
 
 return dropbox

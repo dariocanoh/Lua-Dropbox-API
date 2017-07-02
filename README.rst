@@ -37,29 +37,45 @@ Cómo usarlo
 ===========
 
 Debe ejecutar la libreria lua con un intérprete de Lua5.1 y para importarlo es dependiendo de 
-como haya llamado el repositorio que descargó, pero por favor llamelo *dropboxapi*.
+como haya llamado el repositorio que descargó, pero por favor llamelo *luadropboxapi*.
 
 .. code-block:: lua
-
-	local dropbox      = require 'dropboxapi.init'
-	local a_token      = '<acces_token>'
-	local account_info = dropbox.get_account_info(a_token)
 	
-	print('Cuenta de Dropbox:\n> Nombre: '.. account_info.display_name .. '\n> Email: ' .. account_info.display_name)
+	dropbox = require 'luadropboxapi'
+
+	dropbox.access_token = '' --> define access_token here
+
+	print('logged in with: ' .. dropbox.get_current_account(dropbox.access_token).email)
 
 
 Referencia
 ==========
 
-===========================  =======================================================================
-  Métodos de la clase      	   Descripción
-===========================  =======================================================================
- dropbox.get_access_token_     Obtiene el token de acceso para trabajar con las funciones de la api.
- dropbox.get_account_info_	   Obtiene la información de la cuenta del usuario.
- dropbox.get_file_content_     Obtiene el contenido de un archivo binario o de texto.
-===========================  =======================================================================
+===============================  =======================================================================
+  Métodos de la clase      	       Descripción
+===============================  =======================================================================
+ dropbox.get_access_token_        Obtiene el token de acceso para trabajar con las funciones de la api.
+ dropbox.get_file_content_        Obtiene el contenido de un archivo binario o de texto.
+ dropbox.get_space_usage_         Obtiene la informacion de el espacio de almacenamiento usado.
+ dropbox.auth_token_revoke_       Deshabilita el token de acceso usado para autenticar las llamadas.
+ dropbox.get_file_content_        Obtiene el contenido de un archivo binario o de texto.
+ dropbox.create_folder_	          Crear una carpeta en la ruta especificada.
+ dropbox.file_delete_             Eliminar el archivo en la ruta especificada.
+ dropbox.file_download_           Descargar el archivo desde Dropbox a la ruta especificada.
+ dropbox.file_upload_             Descargar el archivo desde Dropbox a la ruta especificada.
+ dropbox.get_current_account_     Obtiene la información acerca de la cuenta de usuario actual.
+ dropbox.list_folder_             Obtiene los nombres de archivos dentro de una carpeta.
+===============================  =======================================================================
 
 
-.. _dropbox.get_access_token: docs/dropbox.rst # dropboxget_access_token
-.. _dropbox.get_account_info: docs/dropbox.rst # dropboxget_account_info
-.. _dropbox.get_file_content: docs/dropbox.rst # dropboxget_file_content
+.. _dropbox.get_access_token   : docs/dropbox.rst # dropboxget_access_token
+.. _dropbox.get_account_info   : docs/dropbox.rst # dropboxget_account_info
+.. _dropbox.get_file_content   : docs/dropbox.rst # dropboxget_file_content
+.. _dropbox.get_space_usage    : docs/dropbox.rst # get_space_usage
+.. _dropbox.auth_token_revoke  : docs/dropbox.rst # auth_token_revoke
+.. _dropbox.create_folder      : docs/dropbox.rst # create_folder
+.. _dropbox.file_delete        : docs/dropbox.rst # file_delete
+.. _dropbox.file_download      : docs/dropbox.rst # file_download
+.. _dropbox.file_upload        : docs/dropbox.rst # file_upload
+.. _dropbox.get_current_account: docs/dropbox.rst # get_current_account
+.. _dropbox.list_folder        : docs/dropbox.rst # list_folder

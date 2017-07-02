@@ -8,7 +8,7 @@ if string.find(_VERSION, "Lua 5.0") then
 	local cpath = os.getenv"LUA_CPATH" or "/usr/local/lib/lua/5.0/"
 	core = loadlib(cpath.."md5/core.so", "luaopen_md5_core")()
 else
-	core = require "md5.core"
+	core = require"md5.core"
 end
 
 

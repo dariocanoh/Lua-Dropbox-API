@@ -38,17 +38,6 @@ Deshabilita el token de acceso usado para autenticar las llamadas.
 
 ----------------------------------------------------------------------------------------------------
 
-dropbox.get_account_info
-^^^^^^^^^^^^^^^^^^^^^^^^
-   
-Devuelve la informacion de la cuenta de Dropbox en una tabla.
-   
-==========  ========================================================================================
-  table      dropbox.get_account_info ( string_ 'access_token' )
-==========  ========================================================================================
-
-----------------------------------------------------------------------------------------------------
-
 dropbox.get_space_usage
 ^^^^^^^^^^^^^^^^^^^^^^^  
 
@@ -98,7 +87,36 @@ Crear una carpeta en la ruta especificada.
 ==========  ========================================================================================
   table_     dropbox.create_folder ( string_ 'path', bool_ autorename = false )
 ==========  ========================================================================================
+ 
+ - **Returns:**
 
+.. code-block::
+
+ CreateFolderResult :: FolderMetadata {
+    "metadata": {
+        "name": "math",
+        "id": "id:a4ayc_80_OEAAAAAAAAAXz",
+        "path_lower": "/homework/math",
+        "path_display": "/Homework/math",
+        "sharing_info": {
+            "read_only": false,
+            "parent_shared_folder_id": "84528192421",
+            "traverse_only": false,
+            "no_access": false
+        },
+        "property_groups": [
+            {
+                "template_id": "ptid:1a5n2i6d3OYEAAAAAAAAAYa",
+                "fields": [
+                    {
+                        "name": "Security Policy",
+                        "value": "Confidential"
+                    }
+                ]
+            }
+        ]
+    }
+ }
 ----------------------------------------------------------------------------------------------------
 
 dropbox.file_delete
@@ -114,6 +132,38 @@ Eliminar el archivo en la ruta especificada.
   table_     dropbox.file_delete ( string_ 'access_token', string_ 'path' )
 ==========  ========================================================================================
 
+
+.. code-block::
+
+ DeletedMetadata :: FolderMetadata {
+    ".tag": "file",
+    "name": "Prime_Numbers.txt",
+    "id": "id:a4ayc_80_OEAAAAAAAAAXw",
+    "client_modified": "2015-05-12T15:50:38Z",
+    "server_modified": "2015-05-12T15:50:38Z",
+    "rev": "a1c10ce0dd78",
+    "size": 7212,
+    "path_lower": "/homework/math/prime_numbers.txt",
+    "path_display": "/Homework/math/Prime_Numbers.txt",
+    "sharing_info": {
+        "read_only": true,
+        "parent_shared_folder_id": "84528192421",
+        "modified_by": "dbid:AAH4f99T0taONIb-OurWxbNQ6ywGRopQngc"
+    },
+    "property_groups": [
+        {
+            "template_id": "ptid:1a5n2i6d3OYEAAAAAAAAAYa",
+            "fields": [
+                {
+                    "name": "Security Policy",
+                    "value": "Confidential"
+                }
+            ]
+        }
+    ],
+    "has_explicit_shared_members": false,
+    "content_hash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+ }
 ----------------------------------------------------------------------------------------------------
 
 dropbox.file_download
@@ -122,7 +172,7 @@ dropbox.file_download
 Descargar el archivo desde Dropbox a la ruta especificada.
 
 ==========  ========================================================================================
-  table_     dropbox.file_delete ( string_ 'access_token', string_ 'path', string_ 'destination' )
+  bool_      dropbox.file_delete ( string_ 'access_token', string_ 'path', string_ 'destination' )
 ==========  ========================================================================================
 
 ----------------------------------------------------------------------------------------------------
@@ -145,6 +195,17 @@ Obtiene la información acerca de la cuenta de usuario actual.
 
 ==========  ========================================================================================
   table_     dropbox.get_current_account ( string_ 'access_token' )
+==========  ========================================================================================
+
+----------------------------------------------------------------------------------------------------
+
+dropbox.list_folder
+^^^^^^^^^^^^^^^^^^^
+
+Obtiene los nombres de archivos dentro de una carpeta.
+
+==========  ========================================================================================
+  table_     dropbox.list_folder( _string_ access_token, string_ path, bool_ recursive, bool_ include_media_info, bool_ include_deleted, bool_ include_has_explicit_shared_members )
 ==========  ========================================================================================
 
 ----------------------------------------------------------------------------------------------------

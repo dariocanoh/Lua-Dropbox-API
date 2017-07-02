@@ -7,8 +7,8 @@
 -----------------------------------------------------------------------------
 -- Declare module
 -----------------------------------------------------------------------------
-local string = require 'string'
-local table  = require 'table'
+local string = require("string")
+local table = require("table")
 local base = _G
 local _M = {}
 if module then -- heuristic for exporting a global package table
